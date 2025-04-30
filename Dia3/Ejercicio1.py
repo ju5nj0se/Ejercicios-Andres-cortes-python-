@@ -18,10 +18,9 @@ Biblioteca = {
 
 #Variables que van a funcionar como filtros en caso de que el valor se erroneo o directamente no se introduzca un valor
 ID = int()
-Titulo = str()
+Titulo =str()
 Autor = str()
-Año = int()
-
+Año = int(0)
 
 # Creacion de la funciones que nos van a permitir hacer las diferentes acciones
 def Crear(Titulo, Autor, Año): #Agregar nuevos libros al diccionario
@@ -30,10 +29,23 @@ def Crear(Titulo, Autor, Año): #Agregar nuevos libros al diccionario
     Biblioteca.setdefault(ID, (Titulo, Autor, Año))
     print(Biblioteca)
 
-def Buscar(ID, Titulo): #Mostrar todos lo libros almacenados y permitir buscar un libro por su ID o Titulo
-    if ID != None:
-        if ID in Biblioteca.keys():
-            print(f"Id: {Biblioteca.get(ID)}")
+def Buscar(ID, Titulo, op):#Mostrar todos los libros almacenados y permitir buscar un libro por su ID o Titulo
+    if op == "ver": #Opcion en caso de que quiera ver todos los libros
+        for i in range(len(Biblioteca)):
+            print(f"\n- ID: {ID}\n- Titulo: {Biblioteca.get(ID, "no encontrada").get("titulo", "no encontrada")}\n- Autor: {Biblioteca.get(ID, "no encontrada").get("autor", "No encontrada")}\n- Año: {Biblioteca.get(ID, "no encontrada").get("Año", "no encontrada")}") 
+            # Se utiliza 2 veces get pq es un diccionario bidimensional
+            ID = ID + 1 #El contador es el mismo ID
+    elif op == "see": #Opcion en caso de que quiera buscar un libro por su titulo o por su autor
+       ID = input("Ingrese el ID: ")
+       Titulo = input("Ingrese el Titulo: ")
+       
+       #3 condiciones para los 3 posibles casos (ID, Titulo  y ID and Titulo)
+       if ID != 0 and Titulo != "":
+           for i in range(len(Biblioteca)):
+               if ID in Biblioteca.get(ID, "ID no encontrado"):
+                       if Titulo == Biblioteca.get(ID).get("titulo", "Titulo no encontrado"):
+                           
+               
     
 Op = int(input("Elija una opcion: "))
 
@@ -43,3 +55,6 @@ if Op == 1:
     Autor = input("Ingrese un autor para el libro: ")
     Año = int(input("Ingrese el año de publicacion del libro: "))
     Crear(Titulo, Autor, Año)
+if Op == 2:
+    op = input("- Para ver todos los libros almacenados escriba 'ver'.\n- Para buscar un libro por su ID o Titulo escriba 'see'.\n: ")
+    Buscar(ID, Titulo, op)
