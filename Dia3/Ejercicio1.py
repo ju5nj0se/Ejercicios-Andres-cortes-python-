@@ -20,7 +20,7 @@ Biblioteca = {
 ID = int()
 Titulo =str()
 Autor = str()
-Año = int(0)
+Año = int()
 
 # Creacion de la funciones que nos van a permitir hacer las diferentes acciones
 def Crear(Titulo, Autor, Año): #Agregar nuevos libros al diccionario
@@ -33,18 +33,12 @@ def Buscar(ID, Titulo, op):#Mostrar todos los libros almacenados y permitir busc
     if op == "ver": #Opcion en caso de que quiera ver todos los libros
         for i in range(len(Biblioteca)):
             print(f"\n- ID: {ID}\n- Titulo: {Biblioteca.get(ID, "no encontrada").get("titulo", "no encontrada")}\n- Autor: {Biblioteca.get(ID, "no encontrada").get("autor", "No encontrada")}\n- Año: {Biblioteca.get(ID, "no encontrada").get("Año", "no encontrada")}") 
-            # Se utiliza 2 veces get pq es un diccionario bidimensional
             ID = ID + 1 #El contador es el mismo ID
     elif op == "see": #Opcion en caso de que quiera buscar un libro por su titulo o por su autor
-       ID = input("Ingrese el ID: ")
-       Titulo = input("Ingrese el Titulo: ")
        
-       #3 condiciones para los 3 posibles casos (ID, Titulo  y ID and Titulo)
-       if ID != 0 and Titulo != "":
-           for i in range(len(Biblioteca)):
-               if ID in Biblioteca.get(ID, "ID no encontrado"):
-                       if Titulo == Biblioteca.get(ID).get("titulo", "Titulo no encontrado"):
-                           
+        if ID in Biblioteca.keys() and Titulo in Biblioteca.get(ID, "Nada"):
+            print(f"- ID: {ID}\n- Titulo: {Biblioteca.get(ID).get("titulo")}\n- Autor: {Biblioteca.get(ID).get("autor")}")
+        
                
     
 Op = int(input("Elija una opcion: "))
@@ -57,4 +51,7 @@ if Op == 1:
     Crear(Titulo, Autor, Año)
 if Op == 2:
     op = input("- Para ver todos los libros almacenados escriba 'ver'.\n- Para buscar un libro por su ID o Titulo escriba 'see'.\n: ")
-    Buscar(ID, Titulo, op)
+    if op == "see": #Opcion en caso de que quiera buscar un libro por su titulo o por su autor
+       ID = int(input("Ingrese el ID: "))
+       Titulo = input("Ingrese el Titulo: ")
+       Buscar(ID, Titulo, op)
